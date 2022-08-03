@@ -1,3 +1,4 @@
+using System.Drawing;
 /*
  * Copyright(c) 2020 Samsung Electronics Co., Ltd.
  *
@@ -211,6 +212,134 @@ namespace Tizen.NUI.BaseComponents
             List<Position2D> list = GetPositionListFromNativeVector(Interop.TextLabel.GetTextPosition(textLabel.SwigCPtr, (uint)start, (uint)end));
             CheckSWIGPendingException();
             return list;
+        }
+        
+        /// <summary>
+        /// Get the rendered size of the character at the requested place. <br />
+        /// </summary>
+        /// <param name="textEditor">The TextEditor control containing the text.</param>
+        /// <param name="character">The index of the character to get the size for</param>
+        // This will be public opened after ACR done. (Before ACR, need to be hidden as Inhouse API)
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static Size2D GetCharacterSize(TextEditor textEditor, int character)
+        {
+            if (textEditor == null)
+            {
+                throw new ArgumentNullException(null, "textEditor object is null");
+            }
+
+            //One character: one index.
+            ValidateRange(character, 0);
+
+            Size2D size = GetSizeListFromNativeVector(Interop.TextEditor.GetCharacterSize(textEditor.SwigCPtr, (uint)character));
+            CheckSWIGPendingException();
+            return size;
+        }
+
+        /// <summary>
+        /// Get the rendered size of the character at the requested place. <br />
+        /// </summary>
+        /// <param name="textField">The textField control containing the text.</param>
+        /// <param name="character">The index of the character to get the size for</param>
+        // This will be public opened after ACR done. (Before ACR, need to be hidden as Inhouse API)
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static Size2D GetCharacterSize(TextField textField, int character)
+        {
+            if (textField == null)
+            {
+                throw new ArgumentNullException(null, "textField object is null");
+            }
+
+            ValidateRange(character, 0);
+
+            Size2D size = GetSizeListFromNativeVector(Interop.TextField.GetCharacterSize(textField.SwigCPtr, (uint)character));
+            CheckSWIGPendingException();
+            return size;
+        }
+
+       /// <summary>
+        /// Get the rendered size of the character at the requested place. <br />
+        /// </summary>
+        /// <param name="textLabel">The textLabel control containing the text.</param>
+        /// <param name="character">The index of the character to get the size for</param>
+        // This will be public opened after ACR done. (Before ACR, need to be hidden as Inhouse API)
+       [EditorBrowsable(EditorBrowsableState.Never)]
+        public static Size2D GetCharacterSize(TextLabel textLabel, int character)
+        {
+            if (textLabel == null)
+            {
+                throw new ArgumentNullException(null, "textLabel object is null");
+            }
+
+            ValidateRange(start, end);
+
+            Size2D size = GetSizeListFromNativeVector(Interop.TextLabel.GetCharacterSize(textLabel.SwigCPtr, (uint)character));
+            CheckSWIGPendingException();
+            return size;
+        }
+
+        /// <summary>
+        /// Get the rendered position of the character at the requested place. <br />
+        /// </summary>
+        /// <param name="textEditor">The TextEditor control containing the text.</param>
+        /// <param name="character">The index of the character to get the position for</param>
+        // This will be public opened after ACR done. (Before ACR, need to be hidden as Inhouse API)
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static Size2D GetCharacterPosition(TextEditor textEditor, int character)
+        {
+            if (textEditor == null)
+            {
+                throw new ArgumentNullException(null, "textEditor object is null");
+            }
+
+            //One character: one index.
+            ValidateRange(character, 0);
+
+            Size2D position = GetSizeListFromNativeVector(Interop.TextEditor.GetCharacterPosition(textEditor.SwigCPtr, (uint)character));
+            CheckSWIGPendingException();
+            return position;
+        }
+
+        /// <summary>
+        /// Get the rendered position of the character at the requested place. <br />
+        /// </summary>
+        /// <param name="textField">The textField control containing the text.</param>
+        /// <param name="character">The index of the character to get the position for</param>
+        // This will be public opened after ACR done. (Before ACR, need to be hidden as Inhouse API)
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static Size2D GetCharacterPosition(TextField textField, int character)
+        {
+            if (textField == null)
+            {
+                throw new ArgumentNullException(null, "textField object is null");
+            }
+
+            ValidateRange(character, 0);
+
+            Size2D position = GetSizeListFromNativeVector(Interop.TextField.GetCharacterPosition(textField.SwigCPtr, (uint)character));
+            CheckSWIGPendingException();
+            return position;
+        }
+
+        /// <summary>
+        /// Get the rendered position of the character at the requested place. <br />
+        /// </summary>
+        /// <param name="textLabel">The textLabel control containing the text.</param>
+        /// <param name="character">The index of the character to get the position for</param>
+        // This will be public opened after ACR done. (Before ACR, need to be hidden as Inhouse API)
+       [EditorBrowsable(EditorBrowsableState.Never)]
+        public static Size2D GetCharacterPosition(TextLabel textLabel, int character)
+        {
+            if (textLabel == null)
+            {
+                throw new ArgumentNullException(null, "textLabel object is null");
+            }
+
+            ValidateRange(start, end);
+
+            Size2D position = GetSizeListFromNativeVector(Interop.TextLabel.GetCharacterPosition(textLabel.SwigCPtr, (uint)character));
+            CheckSWIGPendingException();
+            return position;
         }
     }
 }
