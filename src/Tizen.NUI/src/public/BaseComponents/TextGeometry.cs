@@ -1,3 +1,7 @@
+using System.Reflection.Emit;
+using System.Security.Cryptography;
+using System.Numerics;
+using System.Security.AccessControl;
 using System.Drawing;
 /*
  * Copyright(c) 2020 Samsung Electronics Co., Ltd.
@@ -29,14 +33,17 @@ namespace Tizen.NUI.BaseComponents
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class TextGeometry
     {
-        private static void ValidateRange(int start, int end)
+        private static void ValidateIndex(int index)
         {
-            if (start < 0)
-                throw new global::System.ArgumentOutOfRangeException(nameof(start), "Value is less than zero");
-            if (end < 0)
-                throw new global::System.ArgumentOutOfRangeException(nameof(end), "Value is less than zero");
+            if (index < 0)
+                throw new global::System.ArgumentOutOfRangeException(nameof(index), "Value is less than zero");
         }
 
+        private static void ValidateRange(int start, int end)
+        {
+            ValidateIndex(start);
+            ValidateIndex(end);
+        }
         private static List<Size2D> GetSizeListFromNativeVector(System.IntPtr ptr)
         {
             using (VectorVector2 sizeVector = new VectorVector2 (ptr, true))
@@ -63,6 +70,20 @@ namespace Tizen.NUI.BaseComponents
 
                 return list;
             }
+        }
+
+        private static Size2D GetSizeFromNativeVector2(System.IntPtr ptr)
+        {
+            Size2D result = new Size2D(ptr, false);
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+            return result;
+        }
+
+        private static Position2D GetPositionFromNativeVector2(System.IntPtr ptr)
+        {
+            Position2D result = new Position2D(ptr, false);
+            if (NDalicPINVOKE.SWIGPendingException.Pending) throw NDalicPINVOKE.SWIGPendingException.Retrieve();
+            return result;
         }
 
         private static void CheckSWIGPendingException()
@@ -213,15 +234,15 @@ namespace Tizen.NUI.BaseComponents
             CheckSWIGPendingException();
             return list;
         }
-        
+
         /// <summary>
         /// Get the rendered size of the character at the requested place. <br />
         /// </summary>
         /// <param name="textEditor">The TextEditor control containing the text.</param>
-        /// <param name="character">The index of the character to get the size for</param>
+        /// <param name="index">The index of the character to get the size for</param>
         // This will be public opened after ACR done. (Before ACR, need to be hidden as Inhouse API)
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static Size2D GetCharacterSize(TextEditor textEditor, int character)
+        public static Size2D GetCharacterSize(TextEditor textEditor, int index)
         {
             if (textEditor == null)
             {
@@ -229,9 +250,9 @@ namespace Tizen.NUI.BaseComponents
             }
 
             //One character: one index.
-            ValidateRange(character, 0);
+            ValidateIndex(index);
 
-            Size2D size = GetSizeListFromNativeVector(Interop.TextEditor.GetCharacterSize(textEditor.SwigCPtr, (uint)character));
+            Size2D size = GetSizeFromNativeVector2(Interop.TextEditor.GetCharacterSize(textEditor.SwigCPtr, (uint)index));
             CheckSWIGPendingException();
             return size;
         }
@@ -240,19 +261,19 @@ namespace Tizen.NUI.BaseComponents
         /// Get the rendered size of the character at the requested place. <br />
         /// </summary>
         /// <param name="textField">The textField control containing the text.</param>
-        /// <param name="character">The index of the character to get the size for</param>
+        /// <param name="index">The index of the character to get the size for</param>
         // This will be public opened after ACR done. (Before ACR, need to be hidden as Inhouse API)
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static Size2D GetCharacterSize(TextField textField, int character)
+        public static Size2D GetCharacterSize(TextField textField, int index)
         {
             if (textField == null)
             {
                 throw new ArgumentNullException(null, "textField object is null");
             }
 
-            ValidateRange(character, 0);
+            ValidateIndex(index);
 
-            Size2D size = GetSizeListFromNativeVector(Interop.TextField.GetCharacterSize(textField.SwigCPtr, (uint)character));
+            Size2D size = GetSizeFromNativeVector2(Interop.TextField.GetCharacterSize(textField.SwigCPtr, (uint)index));
             CheckSWIGPendingException();
             return size;
         }
@@ -261,19 +282,19 @@ namespace Tizen.NUI.BaseComponents
         /// Get the rendered size of the character at the requested place. <br />
         /// </summary>
         /// <param name="textLabel">The textLabel control containing the text.</param>
-        /// <param name="character">The index of the character to get the size for</param>
+        /// <param name="index">The index of the character to get the size for</param>
         // This will be public opened after ACR done. (Before ACR, need to be hidden as Inhouse API)
        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static Size2D GetCharacterSize(TextLabel textLabel, int character)
+        public static Size2D GetCharacterSize(TextLabel textLabel, int index)
         {
             if (textLabel == null)
             {
                 throw new ArgumentNullException(null, "textLabel object is null");
             }
 
-            ValidateRange(start, end);
+            ValidateIndex(index);
 
-            Size2D size = GetSizeListFromNativeVector(Interop.TextLabel.GetCharacterSize(textLabel.SwigCPtr, (uint)character));
+            Size2D size = GetSizeFromNativeVector2(Interop.TextLabel.GetCharacterSize(textLabel.SwigCPtr, (uint)index));
             CheckSWIGPendingException();
             return size;
         }
@@ -282,10 +303,10 @@ namespace Tizen.NUI.BaseComponents
         /// Get the rendered position of the character at the requested place. <br />
         /// </summary>
         /// <param name="textEditor">The TextEditor control containing the text.</param>
-        /// <param name="character">The index of the character to get the position for</param>
+        /// <param name="index">The index of the character to get the position for</param>
         // This will be public opened after ACR done. (Before ACR, need to be hidden as Inhouse API)
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static Size2D GetCharacterPosition(TextEditor textEditor, int character)
+        public static Position2D GetCharacterPosition(TextEditor textEditor, int index)
         {
             if (textEditor == null)
             {
@@ -293,9 +314,9 @@ namespace Tizen.NUI.BaseComponents
             }
 
             //One character: one index.
-            ValidateRange(character, 0);
+            ValidateIndex(index);
 
-            Size2D position = GetSizeListFromNativeVector(Interop.TextEditor.GetCharacterPosition(textEditor.SwigCPtr, (uint)character));
+            Position2D position = GetPositionFromNativeVector2(Interop.TextEditor.GetCharacterPosition(textEditor.SwigCPtr, (uint)index));
             CheckSWIGPendingException();
             return position;
         }
@@ -304,19 +325,19 @@ namespace Tizen.NUI.BaseComponents
         /// Get the rendered position of the character at the requested place. <br />
         /// </summary>
         /// <param name="textField">The textField control containing the text.</param>
-        /// <param name="character">The index of the character to get the position for</param>
+        /// <param name="index">The index of the character to get the position for</param>
         // This will be public opened after ACR done. (Before ACR, need to be hidden as Inhouse API)
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static Size2D GetCharacterPosition(TextField textField, int character)
+        public static Position2D GetCharacterPosition(TextField textField, int index)
         {
             if (textField == null)
             {
                 throw new ArgumentNullException(null, "textField object is null");
             }
 
-            ValidateRange(character, 0);
+            ValidateIndex(index);
 
-            Size2D position = GetSizeListFromNativeVector(Interop.TextField.GetCharacterPosition(textField.SwigCPtr, (uint)character));
+            Position2D position = GetPositionFromNativeVector2(Interop.TextField.GetCharacterPosition(textField.SwigCPtr, (uint)index));
             CheckSWIGPendingException();
             return position;
         }
@@ -325,19 +346,19 @@ namespace Tizen.NUI.BaseComponents
         /// Get the rendered position of the character at the requested place. <br />
         /// </summary>
         /// <param name="textLabel">The textLabel control containing the text.</param>
-        /// <param name="character">The index of the character to get the position for</param>
+        /// <param name="index">The index of the character to get the position for</param>
         // This will be public opened after ACR done. (Before ACR, need to be hidden as Inhouse API)
        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static Size2D GetCharacterPosition(TextLabel textLabel, int character)
+        public static Position2D GetCharacterPosition(TextLabel textLabel, int index)
         {
             if (textLabel == null)
             {
                 throw new ArgumentNullException(null, "textLabel object is null");
             }
 
-            ValidateRange(start, end);
+            ValidateIndex(index);
 
-            Size2D position = GetSizeListFromNativeVector(Interop.TextLabel.GetCharacterPosition(textLabel.SwigCPtr, (uint)character));
+            Position2D position = GetPositionFromNativeVector2(Interop.TextLabel.GetCharacterPosition(textLabel.SwigCPtr, (uint)index));
             CheckSWIGPendingException();
             return position;
         }

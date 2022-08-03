@@ -170,7 +170,153 @@ namespace Tizen.NUI.Devel.Tests
 
             tlog.Debug(tag, $"GetTextPositionTextLabel END (OK)");
         }
+//-------------------------------- character
 
+
+        [Test]
+        [Category("P1")]
+        [Description("TextGeometry GetCharacterSize on TextEditor")]
+        [Property("SPEC", "Tizen.NUI.BaseComponents.TextGeometry.GetCharacterSize M")]
+        [Property("SPEC_URL", "-")]
+        [Property("CRITERIA", "MR")]
+        [Property("AUTHOR", "s.al-jammal@partner.samsung.com")]
+        public void GetCharacterSizeTextEditor()
+        {
+            tlog.Debug(tag, $"GetCharacterSizeTextEditor START");
+
+            Size2D expectedSize = new Size2D(0, 0);
+
+            var testingTarget = new TextEditor();
+            Assert.IsNotNull(testingTarget, "Can't create success object TextEditor");
+            Assert.IsInstanceOf<TextEditor>(testingTarget, "Should be an instance of TextEditor type.");
+
+            var actualSize = TextGeometry.GetCharacterSize(testingTarget, 0);
+            Assert.IsNotNull(actualSize, "Null object is detected!");
+            Assert.IsTrue(actualSize.Equals(expectedSize), "Should be true!");
+
+            tlog.Debug(tag, $"GetCharacterSizeTextEditor END (OK)");
+        }
+
+        [Test]
+        [Category("P1")]
+        [Description("TextGeometry GetCharacterSize on TextField")]
+        [Property("SPEC", "Tizen.NUI.BaseComponents.TextGeometry.GetCharacterSize M")]
+        [Property("SPEC_URL", "-")]
+        [Property("CRITERIA", "MR")]
+        [Property("AUTHOR", "s.al-jammal@partner.samsung.com")]
+        public void GetCharacterSizeTextField()
+        {
+            tlog.Debug(tag, $"GetCharacterSizeTextField START");
+
+            Size2D expectedSize = new Size2D(0, 0);
+
+            var testingTarget = new TextEditor();
+            Assert.IsNotNull(testingTarget, "Can't create success object TextEditor");
+            Assert.IsInstanceOf<TextEditor>(testingTarget, "Should be an instance of TextEditor type.");
+
+            var actualSize = TextGeometry.GetCharacterSize(testingTarget, 0);
+            Assert.IsNotNull(actualSize, "Null object is detected!");
+            Assert.IsTrue(actualSize.Equals(expectedSize), "Should be true!");
+
+
+            tlog.Debug(tag, $"GetCharacterSizeTextField END (OK)");
+        }
+
+        [Test]
+        [Category("P1")]
+        [Description("TextGeometry GetCharacterSize on TextLabel")]
+        [Property("SPEC", "Tizen.NUI.BaseComponents.TextGeometry.GetCharacterSize M")]
+        [Property("SPEC_URL", "-")]
+        [Property("CRITERIA", "MR")]
+        [Property("AUTHOR", "s.al-jammal@partner.samsung.com")]
+        public void GetCharacterSizeTextLabel()
+        {
+            tlog.Debug(tag, $"GetCharacterSizeTextLabel START");
+
+            Size2D expectedSize = new Size2D(0, 0);
+
+            var testingTarget = new TextEditor();
+            Assert.IsNotNull(testingTarget, "Can't create success object TextEditor");
+            Assert.IsInstanceOf<TextEditor>(testingTarget, "Should be an instance of TextEditor type.");
+
+            var actualSize = TextGeometry.GetCharacterSize(testingTarget, 0);
+            Assert.IsNotNull(actualSize, "Null object is detected!");
+            Assert.IsTrue(actualSize.Equals(expectedSize), "Should be true!");
+
+            tlog.Debug(tag, $"GetCharacterSizeTextLabel END (OK)");
+        }
+
+        [Test]
+        [Category("P1")]
+        [Description("TextGeometry GetCharacterPosition on TextLabel")]
+        [Property("SPEC", "Tizen.NUI.BaseComponents.TextGeometry.GetCharacterPosition M")]
+        [Property("SPEC_URL", "-")]
+        [Property("CRITERIA", "MR")]
+        [Property("AUTHOR", "s.al-jammal@partner.samsung.com")]
+        public void GetCharacterPositionTextLabel()
+        {
+            tlog.Debug(tag, $"GetCharacterPositionTextLabel START");
+
+            Position2D expectedPosition = new Position2D(0, 0);
+
+            var testingTarget = new TextLabel();
+            Assert.IsNotNull(testingTarget, "Can't create success object TextLabel");
+            Assert.IsInstanceOf<TextLabel>(testingTarget, "Should be an instance of TextLabel type.");
+
+            var actualPosition = TextGeometry.GetCharacterPosition(testingTarget, 0);
+            Assert.IsNotNull(actualPosition, "Null object is detected!");
+            Assert.IsTrue(actualPosition.Equals(expectedPosition), "Should be true!");
+
+            tlog.Debug(tag, $"GetCharacterPositionTextLabel END (OK)");
+        }
+
+        [Test]
+        [Category("P1")]
+        [Description("TextGeometry GetCharacterPosition on TextField")]
+        [Property("SPEC", "Tizen.NUI.BaseComponents.TextGeometry.GetCharacterPosition M")]
+        [Property("SPEC_URL", "-")]
+        [Property("CRITERIA", "MR")]
+        [Property("AUTHOR", "s.al-jammal@partner.samsung.com")]
+        public void GetCharacterPositionTextField()
+        {
+            tlog.Debug(tag, $"GetCharacterPositionTextField START");
+
+            Position2D expectedPosition = new Position2D(0, 0);
+
+            var testingTarget = new TextLabel();
+            Assert.IsNotNull(testingTarget, "Can't create success object TextLabel");
+            Assert.IsInstanceOf<TextLabel>(testingTarget, "Should be an instance of TextLabel type.");
+
+            var actualPosition = TextGeometry.GetCharacterPosition(testingTarget, 0);
+            Assert.IsNotNull(actualPosition, "Null object is detected!");
+            Assert.IsTrue(actualPosition.Equals(expectedPosition), "Should be true!");
+
+            tlog.Debug(tag, $"GetCharacterPositionTextField END (OK)");
+        }
+
+        [Test]
+        [Category("P1")]
+        [Description("TextGeometry GetCharacterPosition on TextEditor")]
+        [Property("SPEC", "Tizen.NUI.BaseComponents.TextGeometry.GetCharacterPosition M")]
+        [Property("SPEC_URL", "-")]
+        [Property("CRITERIA", "MR")]
+        [Property("AUTHOR", "s.al-jammal@partner.samsung.com")]
+        public void GetCharacterPositionTextEditor()
+        {
+            tlog.Debug(tag, $"GetCharacterPositionTextEditor START");
+
+            Position2D expectedPosition = new Position2D(0, 0);
+
+            var testingTarget = new TextLabel();
+            Assert.IsNotNull(testingTarget, "Can't create success object TextLabel");
+            Assert.IsInstanceOf<TextLabel>(testingTarget, "Should be an instance of TextLabel type.");
+
+            var actualPosition = TextGeometry.GetCharacterPosition(testingTarget, 0);
+            Assert.IsNotNull(actualPosition, "Null object is detected!");
+            Assert.IsTrue(actualPosition.Equals(expectedPosition), "Should be true!");
+
+            tlog.Debug(tag, $"GetCharacterPositionTextEditor END (OK)");
+        }
 
     }
 }
